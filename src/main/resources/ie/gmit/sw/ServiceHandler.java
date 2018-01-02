@@ -1,29 +1,18 @@
+package ie.gmit.sw;
 
-import java.io.IOException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.*;
 
 /* NB: You will need to add the JAR file $TOMCAT_HOME/lib/servlet-api.jar to your CLASSPATH 
  *     variable in order to compile a servlet from a command line.
  */
 @WebServlet("/UploadServlet")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB. The file size in
-														// bytes after which the
-														// file will be
-														// temporarily stored on
-														// disk. The default
-														// size is 0 bytes.
-		maxFileSize = 1024 * 1024 * 10, // 10MB. The maximum size allowed for
-										// uploaded files, in bytes
-		maxRequestSize = 1024 * 1024 * 50) // 50MB. he maximum size allowed for
-											// a multipart/form-data request, in
-											// bytes.
+@MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB. The file size in bytes after which the file will be temporarily stored on disk. The default size is 0 bytes.
+                 maxFileSize=1024*1024*10,      // 10MB. The maximum size allowed for uploaded files, in bytes
+                 maxRequestSize=1024*1024*50)   // 50MB. he maximum size allowed for a multipart/form-data request, in bytes.
 public class ServiceHandler extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
 	/* Declare any shared objects here. For example any of the following can be handled from 
 	 * this context by instantiating them at a servlet level:
 	 *   1) An Asynchronous Message Facade: declare the IN and OUT queues or MessageQueue
@@ -32,10 +21,7 @@ public class ServiceHandler extends HttpServlet {
 	 */
 	private String environmentalVariable = null; //Demo purposes only. Rename this variable to something more appropriate
 	private static long jobNumber = 0;
-	
-	public ServiceHandler() {
-		super();
-	}
+
 
 	/* This method is only called once, when the servlet is first started (like a constructor). 
 	 * It's the Template Patten in action! Any application-wide variables should be initialised 
@@ -49,6 +35,7 @@ public class ServiceHandler extends HttpServlet {
 		//defined in the web.xml can be read in as follows:
 		environmentalVariable = ctx.getInitParameter("SOME_GLOBAL_OR_ENVIRONMENTAL_VARIABLE"); 
 	}
+
 
 	/* The doGet() method handles a HTTP GET request. Please note the following very carefully:
 	 *   1) The doGet() method is executed in a separate thread. If you instantiate any objects
@@ -153,5 +140,4 @@ public class ServiceHandler extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doGet(req, resp);
  	}
-
 }
