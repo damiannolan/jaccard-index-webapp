@@ -5,6 +5,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 public class ServicePollHandler extends HttpServlet {
+	private static final long serialVersionUID = 42L;
+
 	public void init() throws ServletException {
 		ServletContext ctx = getServletContext();
 	}

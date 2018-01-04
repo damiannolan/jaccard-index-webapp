@@ -16,7 +16,7 @@
 
 	</dependencies>
 	<build>
-		<sourceDirectory>src/main/resources</sourceDirectory>
+		<sourceDirectory>src/main/java</sourceDirectory>
 		<finalName>Jaccard</finalName>
 	</build>
 </project>

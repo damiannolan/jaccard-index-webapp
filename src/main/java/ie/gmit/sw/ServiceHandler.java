@@ -13,6 +13,8 @@ import javax.servlet.annotation.*;
                  maxFileSize=1024*1024*10,      // 10MB. The maximum size allowed for uploaded files, in bytes
                  maxRequestSize=1024*1024*50)   // 50MB. he maximum size allowed for a multipart/form-data request, in bytes.
 public class ServiceHandler extends HttpServlet {
+	private static final long serialVersionUID = 42L;
+
 	/* Declare any shared objects here. For example any of the following can be handled from 
 	 * this context by instantiating them at a servlet level:
 	 *   1) An Asynchronous Message Facade: declare the IN and OUT queues or MessageQueue
