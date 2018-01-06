@@ -85,7 +85,6 @@ public class ServiceHandler extends HttpServlet {
 		System.out.println(doc.text());
 
 		
-		
 		// We could use the following to track asynchronous tasks. Comment it
 		// out otherwise...
 		if (taskNumber == null) {
