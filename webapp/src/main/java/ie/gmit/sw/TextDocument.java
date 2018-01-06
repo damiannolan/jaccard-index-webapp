@@ -9,7 +9,7 @@ public class TextDocument implements Document {
 	public TextDocument(String title, String s) {
 		this.title = title;
 		this.text = s;
-		this.id = 0; //fix
+		this.id = title.hashCode(); // hashcode() the title
 	}
 	
 	public String title() {
