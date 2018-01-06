@@ -1,9 +1,22 @@
 package ie.gmit.sw;
 
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
+import ie.gmit.sw.documents.Document;
+import ie.gmit.sw.documents.DocumentFactory;
 
 /* NB: You will need to add the JAR file $TOMCAT_HOME/lib/servlet-api.jar to your CLASSPATH 
  *     variable in order to compile a servlet from a command line.
@@ -62,15 +75,16 @@ public class ServiceHandler extends HttpServlet {
 	 * vice-versa.
 	 */
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		DocumentFactory df = DocumentFactory.getInstance();
-		Document doc = df.newDocument(req.getParameter("txtTitle"), req.getPart("txtDocument"));
-		System.out.println(doc.toString());
-		System.out.println(doc.text());
-
 		String title = req.getParameter("txtTitle");
 		String taskNumber = req.getParameter("frmTaskNumber");
 		Part part = req.getPart("txtDocument");
+		
+		DocumentFactory df = DocumentFactory.getInstance();
+		Document doc = df.newDocument(title, part.getInputStream());
+		System.out.println(doc.toString());
+		System.out.println(doc.text());
+
+		
 		
 		// We could use the following to track asynchronous tasks. Comment it
 		// out otherwise...

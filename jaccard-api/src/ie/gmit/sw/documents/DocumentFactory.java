@@ -1,10 +1,9 @@
-package ie.gmit.sw;
+package ie.gmit.sw.documents;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-
-import javax.servlet.http.Part;
 
 public class DocumentFactory {
 	
@@ -23,8 +22,9 @@ public class DocumentFactory {
 	}
 	
 	// Document Factory method
-	public Document newDocument(String title, Part part) throws IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(part.getInputStream()));
+	public Document newDocument(String title, InputStream stream) throws IOException {
+		//BufferedReader reader = new BufferedReader(new InputStreamReader(part.getInputStream()));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 		String line;
 		StringBuffer sb = new StringBuffer();
 		while ((line = reader.readLine()) != null) {

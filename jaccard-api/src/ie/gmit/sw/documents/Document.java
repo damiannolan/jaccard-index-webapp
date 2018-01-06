@@ -1,4 +1,4 @@
-package ie.gmit.sw;
+package ie.gmit.sw.documents;
 
 public interface Document {
 	public String title();
