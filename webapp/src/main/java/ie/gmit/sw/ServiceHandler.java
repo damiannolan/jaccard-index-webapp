@@ -24,7 +24,6 @@ public class ServiceHandler extends HttpServlet {
 	private String environmentalVariable = null; //Demo purposes only. Rename this variable to something more appropriate
 	private static long jobNumber = 0;
 
-
 	/* This method is only called once, when the servlet is first started (like a constructor). 
 	 * It's the Template Patten in action! Any application-wide variables should be initialised 
 	 * here. Note that if you set the xml element <load-on-startup>1</load-on-startup>, this
@@ -48,7 +47,7 @@ public class ServiceHandler extends HttpServlet {
 	 *   3) It is standard practice for doGet() to forward the method invocation to doPost() or
 	 *      vice-versa.
 	 */
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
 		//Step 1) Write out the MIME type
 		resp.setContentType("text/html"); 
 		
@@ -140,6 +139,10 @@ public class ServiceHandler extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		DocumentFactory df = DocumentFactory.getInstance();
+		Document doc = df.newDocument(req.getParameter("txtTitle"), req.getPart("txtDocument"));
+		System.out.println(doc.toString());
+		System.out.println(doc.text());
 		doGet(req, resp);
  	}
 }
