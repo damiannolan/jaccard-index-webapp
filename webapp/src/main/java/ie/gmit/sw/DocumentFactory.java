@@ -30,7 +30,7 @@ public class DocumentFactory {
 		while ((line = reader.readLine()) != null) {
 			sb.append(line);
 		}
-		
+		reader.close();
 		return new TextDocument(title, sb.toString());
 	}
 }
