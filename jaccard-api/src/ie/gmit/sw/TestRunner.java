@@ -7,15 +7,16 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
+import java.util.TreeSet;
 
 import ie.gmit.sw.documents.Document;
 import ie.gmit.sw.documents.TextDocument;
 import ie.gmit.sw.shingles.Shingle;
-import ie.gmit.sw.shingles.Shinglizer;
+import ie.gmit.sw.shingles.TextShinglizer;
 
 public class TestRunner {
-	public static final String FILENAME = "alice.txt";
-	public static final String FILENAME2 = "alice.txt";
+	public static final String FILENAME = "test.txt";
+	public static final String FILENAME2 = "test2.txt";
 	
 	public static void main(String[] args) throws IOException {
 		
@@ -36,9 +37,9 @@ public class TestRunner {
 //		String[] strings = doc.text().split("\\W+");
 //		StringBuilder str = new StringBuilder();
 //		
-		Shinglizer shinglizer = new Shinglizer(3);
+		TextShinglizer shinglizer = new TextShinglizer(3);
 		Set<Shingle> shingles = shinglizer.shinglizeDocument(doc);
-		//System.out.println(Arrays.toString(shingles.toArray()));
+		System.out.println(Arrays.toString(shingles.toArray()));
 		
 		Set<Integer> hashes = new HashSet<Integer>(200);
 		Random r = new Random();
@@ -46,7 +47,7 @@ public class TestRunner {
 			hashes.add(r.nextInt());
 		}
 		
-		Set<Integer> results = new HashSet<Integer>();
+		Set<Integer> results = new TreeSet<Integer>();
 		for(Integer hash : hashes) {
 			int min = Integer.MAX_VALUE;
 			
@@ -55,8 +56,9 @@ public class TestRunner {
 				if(minHash < min) {
 					min = minHash;
 				}
-				results.add(min);
 			}
+			results.add(min);
+
 		}
 		
 		System.out.println(Arrays.toString(results.toArray()));
@@ -83,9 +85,9 @@ public class TestRunner {
 //		String[] strings = doc.text().split("\\W+");
 //		StringBuilder str = new StringBuilder();
 //		
-		Shinglizer shinglizer2 = new Shinglizer(3);
+		TextShinglizer shinglizer2 = new TextShinglizer(3);
 		Set<Shingle> shingles2 = shinglizer2.shinglizeDocument(doc);
-		//System.out.println(Arrays.toString(shingles2.toArray()));
+		System.out.println(Arrays.toString(shingles2.toArray()));
 		
 //		Set<Integer> hashes2 = new HashSet<Integer>(200);
 //		Random r = new Random();
@@ -93,7 +95,7 @@ public class TestRunner {
 //			hashes.add(r.nextInt());
 //		}
 		
-		Set<Integer> results2 = new HashSet<Integer>();
+		Set<Integer> results2 = new TreeSet<Integer>();
 		for(Integer hash : hashes) {
 			int min = Integer.MAX_VALUE;
 			
@@ -101,12 +103,29 @@ public class TestRunner {
 				int minHash = s.hashCode() ^ hash;
 				if(minHash < min) {
 					min = minHash;
-				}
-				results2.add(min);
+				}		
 			}
+			results2.add(min);
 		}
 		
 		System.out.println(Arrays.toString(results2.toArray()));
+		
+		
+		// J(A, B) = |A intersect B| / |A union B|
+		
+		Set<Integer> temp = results;
+		boolean res = temp.retainAll(results2);
+		System.out.println(res);
+		
+		double a = (double) temp.size();
+		System.out.println(a);
+		
+		results.addAll(results2);
+		double b = (double) results.size();
+		System.out.println(b);
+		
+		double jaccard = a / b;
+		System.out.println(jaccard);
 	}
 
 }
