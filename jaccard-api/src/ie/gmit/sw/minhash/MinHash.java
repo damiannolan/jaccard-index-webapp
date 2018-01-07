@@ -10,10 +10,10 @@ import ie.gmit.sw.shingles.Shingle;
 public class MinHash {
 	
 	private Set<Integer> hashes = new HashSet<Integer>(200);
-	private Set<Shingle> shingles;
+	//private Set<Shingle> shingles;
 	
-	public MinHash(Set<Shingle> shingles) {
-		this.shingles = shingles;
+	public MinHash(/*Set<Shingle> shingles*/) {
+		//this.shingles = shingles;
 		initHashes();
 	}
 	
@@ -24,7 +24,7 @@ public class MinHash {
 		}
 	}
 	
-	public void process() {
+	public Set<Integer> process(Set<Shingle> shingles) {
 		Set<Integer> results = new HashSet<Integer>();
 		for(Integer hash : hashes) {
 			int min = Integer.MAX_VALUE;
@@ -36,9 +36,9 @@ public class MinHash {
 				}
 			}
 			results.add(min);
-
 		}
 		
 		System.out.println(Arrays.toString(results.toArray()));
+		return results;
 	}
 }
