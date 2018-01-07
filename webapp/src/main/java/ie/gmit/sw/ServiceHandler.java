@@ -47,33 +47,15 @@ public class ServiceHandler extends HttpServlet {
 	private String appTitle = null;
 	private static long jobNumber = 0;
 
-	/*
-	 * This method is only called once, when the servlet is first started (like
-	 * a constructor). It's the Template Patten in action! Any application-wide
-	 * variables should be initialised here. Note that if you set the xml
-	 * element <load-on-startup>1</load-on-startup>, this method will be
-	 * automatically fired by Tomcat when the web server itself is started.
-	 */
 	public void init() throws ServletException {
 		ServletContext ctx = getServletContext(); // The servlet context is the
 													// application itself.
-
 		// Reads the value from the <context-param> in web.xml. Any application
 		// scope variables
 		// defined in the web.xml can be read in as follows:
 		appTitle = ctx.getInitParameter("APPLICATION_TITLE");
 	}
 
-	/*
-	 * The doGet() method handles a HTTP GET request. Please note the following
-	 * very carefully: 1) The doGet() method is executed in a separate thread.
-	 * If you instantiate any objects inside this method and don't pass them
-	 * around (ie. encapsulate them), they will be thread safe. 2) Any instance
-	 * variables like environmentalVariable or class fields like jobNumber will
-	 * are shared by threads and must be handled carefully. 3) It is standard
-	 * practice for doGet() to forward the method invocation to doPost() or
-	 * vice-versa.
-	 */
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String title = req.getParameter("txtTitle");
 		String taskNumber = req.getParameter("frmTaskNumber");
@@ -83,8 +65,7 @@ public class ServiceHandler extends HttpServlet {
 		Document doc = df.newDocument(title, part.getInputStream());
 		System.out.println(doc.toString());
 		System.out.println(doc.text());
-
-		
+	
 		// We could use the following to track asynchronous tasks. Comment it
 		// out otherwise...
 		if (taskNumber == null) {

@@ -4,10 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
-import java.util.TreeSet;
 
 import ie.gmit.sw.documents.Document;
 import ie.gmit.sw.documents.TextDocument;
@@ -85,6 +82,5 @@ public class TestRunner {
 		
 		double jaccard = a / b;
 		System.out.println(jaccard);
-			}
-
+	}
 }
