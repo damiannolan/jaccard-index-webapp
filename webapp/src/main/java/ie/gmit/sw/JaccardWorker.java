@@ -27,12 +27,10 @@ public class JaccardWorker implements Runnable {
 		 */
 		
 		ShingleResult shingleResult = facade.shinglizeDocument(doc);
-
 		MinHashResult minHashResult = facade.computeMinHash(shingleResult);
-
+		facade.storeHashedResult(minHashResult);
 		double averageJaccardIndex = facade.averageJaccardIndex(minHashResult);
 		
-		facade.storeHashedResult(minHashResult);
 	
 		Response response = new Response(taskNumber, averageJaccardIndex);
 		

@@ -3,9 +3,7 @@ package ie.gmit.sw;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import ie.gmit.sw.database.MinHashStore;
 import ie.gmit.sw.documents.Document;
@@ -71,22 +69,6 @@ public class TestRunner {
 		
 		MinHashResult hashResult = hashGen.process(shingleResult);	
 		MinHashResult hashResult2 = hashGen.process(shingles2);
-				
-		// J(A, B) = |A intersect B| / |A union B|
-		
-//		Set<Integer> temp = hashResult.getHashes();
-//		boolean res = temp.retainAll(hashResult2.getHashes());
-//		System.out.println(res);
-//		
-//		double a = (double) temp.size();
-//		System.out.println(a);
-//		
-//		hashResult.getHashes().addAll(hashResult2.getHashes());
-//		double b = (double) hashResult.getHashes().size();
-//		System.out.println(b);
-//		
-//		double jaccard = a / b;
-//		System.out.println(jaccard);
 		
 		Indexer indexer = new JaccardIndexer();
 		
@@ -96,7 +78,6 @@ public class TestRunner {
 		List<MinHashResult> storedResults = datastore.getMinHashedDocuments();
 		double total = 0;
 		for(MinHashResult r : storedResults) {
-			//System.out.println(r.toString());
 			double jaccard = indexer.calculateIndex(hashResult2, r);
 			System.out.println("Jaccard Index: " + jaccard);
 			total += jaccard;
