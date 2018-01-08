@@ -33,6 +33,7 @@ public class JaccardWorker implements Runnable {
 
 		double averageJaccardIndex = facade.averageJaccardIndex(minHashResult);
 		
+		Response response = new Response(taskNumber, averageJaccardIndex);
 		
 	}
 
