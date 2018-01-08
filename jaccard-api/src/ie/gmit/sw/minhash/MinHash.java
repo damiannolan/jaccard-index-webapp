@@ -6,14 +6,13 @@ import java.util.Random;
 import java.util.Set;
 
 import ie.gmit.sw.shingles.Shingle;
+import ie.gmit.sw.shingles.ShingleResult;
 
 public class MinHash {
 	
-	private Set<Integer> hashes = new HashSet<Integer>(200);
-	//private Set<Shingle> shingles;
+	private static Set<Integer> hashes = new HashSet<Integer>(200);
 	
-	public MinHash(/*Set<Shingle> shingles*/) {
-		//this.shingles = shingles;
+	public MinHash() {
 		initHashes();
 	}
 	
@@ -24,12 +23,12 @@ public class MinHash {
 		}
 	}
 	
-	public Set<Integer> process(Set<Shingle> shingles) {
+	public MinHashResult process(ShingleResult shingleResult) {
 		Set<Integer> results = new HashSet<Integer>();
 		for(Integer hash : hashes) {
 			int min = Integer.MAX_VALUE;
 			
-			for(Shingle shingle : shingles) {
+			for(Shingle shingle : shingleResult.getShingles()) {
 				int minHash = shingle.hashCode() ^ hash;
 				if(minHash < min) {
 					min = minHash;
@@ -39,6 +38,6 @@ public class MinHash {
 		}
 		
 		System.out.println(Arrays.toString(results.toArray()));
-		return results;
+		return new MinHashResult(shingleResult.getTitle(), results);
 	}
 }

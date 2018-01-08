@@ -9,7 +9,8 @@ import java.util.Set;
 import ie.gmit.sw.documents.Document;
 import ie.gmit.sw.documents.TextDocument;
 import ie.gmit.sw.minhash.MinHash;
-import ie.gmit.sw.shingles.Shingle;
+import ie.gmit.sw.minhash.MinHashResult;
+import ie.gmit.sw.shingles.ShingleResult;
 import ie.gmit.sw.shingles.Shinglizer;
 import ie.gmit.sw.shingles.TextShinglizer;
 
@@ -56,28 +57,28 @@ public class TestRunner {
 		 */
 		Shinglizer shinglizer = new TextShinglizer(3);
 		
-		Set<Shingle> shingles = shinglizer.shinglizeDocument(doc);
-		System.out.println(Arrays.toString(shingles.toArray()));
+		ShingleResult shingleResult = shinglizer.shinglizeDocument(doc);
+		System.out.println(Arrays.toString(shingleResult.getShingles().toArray()));
 		
-		Set<Shingle> shingles2 = shinglizer.shinglizeDocument(doc2);
-		System.out.println(Arrays.toString(shingles2.toArray()));
+		ShingleResult shingles2 = shinglizer.shinglizeDocument(doc2);
+		System.out.println(Arrays.toString(shingles2.getShingles().toArray()));
 		
 		MinHash hashGen = new MinHash();
 		
-		Set<Integer> hashedResults = hashGen.process(shingles);	
-		Set<Integer> hashedResults2 = hashGen.process(shingles2);
+		MinHashResult hashResult = hashGen.process(shingleResult);	
+		MinHashResult hashResult2 = hashGen.process(shingles2);
 				
 		// J(A, B) = |A intersect B| / |A union B|
 		
-		Set<Integer> temp = hashedResults;
-		boolean res = temp.retainAll(hashedResults2);
+		Set<Integer> temp = hashResult.getHashes();
+		boolean res = temp.retainAll(hashResult2.getHashes());
 		System.out.println(res);
 		
 		double a = (double) temp.size();
 		System.out.println(a);
 		
-		hashedResults.addAll(hashedResults2);
-		double b = (double) hashedResults.size();
+		hashResult.getHashes().addAll(hashResult2.getHashes());
+		double b = (double) hashResult.getHashes().size();
 		System.out.println(b);
 		
 		double jaccard = a / b;

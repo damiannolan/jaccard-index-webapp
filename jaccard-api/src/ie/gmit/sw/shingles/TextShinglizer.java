@@ -20,7 +20,7 @@ public class TextShinglizer implements Shinglizer {
 	 * Iterate through the array, creating new Shingles
 	 * Add them to the List of shingles
 	 */
-	public Set<Shingle> shinglizeDocument(Document doc) {
+	public ShingleResult shinglizeDocument(Document doc) {
 		Set<Shingle> shingles = new HashSet<Shingle>();
 		
 		// Split the document into an array of words 
@@ -41,6 +41,6 @@ public class TextShinglizer implements Shinglizer {
 		if(sb.length() > 0) {
 			shingles.add(new Shingle(sb.toString().toLowerCase()));
 		}
-		return shingles;
+		return new ShingleResult(doc.title(), shingles);
 	}
 }

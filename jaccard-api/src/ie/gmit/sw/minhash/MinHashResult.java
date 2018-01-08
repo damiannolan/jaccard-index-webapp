@@ -3,13 +3,13 @@ package ie.gmit.sw.minhash;
 import java.util.Arrays;
 import java.util.Set;
 
-public class HashedResult {
+public class MinHashResult {
 	private String title;
-	private Set<Integer> hashes;
+	private Set<Integer> minHashes;
 	
-	public HashedResult(String title, Set<Integer> hashes) {
+	public MinHashResult(String title, Set<Integer> hashes) {
 		this.title = title;
-		this.hashes = hashes;
+		this.minHashes = hashes;
 	}
 	
 	public String getTitle() {
@@ -17,7 +17,7 @@ public class HashedResult {
 	}
 	
 	public Set<Integer> getHashes() {
-		return hashes;
+		return minHashes;
 	}
 	
 	public void setTitle(String title) {
@@ -25,12 +25,12 @@ public class HashedResult {
 	}
 	
 	public void setHashes(Set<Integer> hashes) {
-		this.hashes = hashes;
+		this.minHashes = hashes;
 	}
 	
 	@Override
 	public String toString() {
-		return "[" + title + "] -"+ Arrays.toString(hashes.toArray());
+		return "[" + title + "] -"+ Arrays.toString(minHashes.toArray());
 	}
 	
 }
