@@ -41,7 +41,7 @@ public class InQueueService {
 	}
 	
 	/*
-	 * Static Singleton Factory method to get a handle on the instance
+	 * Static getInstance() method to get a handle on the instance
 	 */
 	public static InQueueService getInstance() throws Exception {
 		if(instance == null) {

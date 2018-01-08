@@ -35,6 +35,8 @@ public class JaccardWorker implements Runnable {
 		
 		Response response = new Response(taskNumber, averageJaccardIndex);
 		
+		
+		
 	}
 
 }
