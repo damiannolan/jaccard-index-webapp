@@ -7,7 +7,7 @@ The web client presents a basic user interface in which a user can upload a text
 
 The following diagram depicts the overall system architecture:
 
-![diagram](https://imgur.com/a/N3vA6.png)
+![Imgur](https://i.imgur.com/4iNxZc4.png)
 
 ## Prerequisites
 
