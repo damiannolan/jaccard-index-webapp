@@ -45,17 +45,14 @@ To use the application simply:
 
 1. Clone this Respository
 ```
-git clone https://github.com/damiannolan/dictionary-service-RMI.git
+git clone https://github.com/damiannolan/jaccard-indexing-minhash-webapp.git
 ```
 
 2. Start RabbitMQ as previously mentioned above
 
 + [Getting Started with RabbitMQ](#getting-started-with-rabbitmq)
 
-3. Start the RMI Server Application
-```
-java -cp ./dictionary-service.jar ie.gmit.sw.server.ServiceSetup
-```
+3. Add the appropriate Db4O jar files to the tomcat lib directory.
 
 4. Drag and Drop `Jaccard.war` into an Apache Tomcat Installation directory under the folder named webapps.
 
