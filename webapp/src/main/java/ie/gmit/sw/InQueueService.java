@@ -51,11 +51,11 @@ public class InQueueService {
 	}
 	
 	/*
-	 * Serialize the Document to the RabbitMQ Message Server - INQUEUE
+	 * Serialize the Request to the RabbitMQ Message Server - INQUEUE
 	 * via channel.basicPublish() using SerializationUtils
 	 */
-	public void queueRequest(Document doc) throws IOException {
-		channel.basicPublish("", QUEUE, null, SerializationUtils.serialize(doc));
+	public void queueRequest(Request request) throws IOException {
+		channel.basicPublish("", QUEUE, null, SerializationUtils.serialize(request));
 	}
 	
 	/*
@@ -79,7 +79,7 @@ public class InQueueService {
 		@Override
 		public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) 
 			throws IOException {
-			Document doc = (Document) SerializationUtils.deserialize(body);
+			Request request = (Request) SerializationUtils.deserialize(body);
 			
 			// Dispatch to worker thread
 		}

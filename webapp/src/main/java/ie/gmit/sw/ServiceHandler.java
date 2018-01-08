@@ -46,14 +46,19 @@ public class ServiceHandler extends HttpServlet {
 	 */
 	private String appTitle = null;
 	private static long jobNumber = 0;
+	private InQueueService inQueueService;
 
 	public void init() throws ServletException {
-		ServletContext ctx = getServletContext(); // The servlet context is the
-													// application itself.
-		// Reads the value from the <context-param> in web.xml. Any application
-		// scope variables
-		// defined in the web.xml can be read in as follows:
+		ServletContext ctx = getServletContext();										
 		appTitle = ctx.getInitParameter("APPLICATION_TITLE");
+		
+		try {
+			// Get a handle on the InQueueService
+			this.inQueueService = InQueueService.getInstance();
+		} catch (Exception e) {
+			System.out.println("Queue Error occurred. Make sure RabbitMq is setup correctly");
+			e.printStackTrace();
+		}
 	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -71,7 +76,11 @@ public class ServiceHandler extends HttpServlet {
 		if (taskNumber == null) {
 			taskNumber = new String("T" + jobNumber);
 			jobNumber++;
+			
+			Request request = new Request(doc, taskNumber);
 			// Add job to in-queue
+			inQueueService.queueRequest(request);
+			
 		} else {
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/poll");
 			dispatcher.forward(req, resp);

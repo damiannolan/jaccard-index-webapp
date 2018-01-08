@@ -8,7 +8,7 @@ public interface IJaccardFacade {
 	
 	public ShingleResult shinglizeDocument(Document doc);
 	
-	public MinHashResult hashDocument(ShingleResult shingleResult);
+	public MinHashResult computeMinHash(ShingleResult shingleResult);
 	
 	public void storeHashedResult(MinHashResult hashedResult);
 	

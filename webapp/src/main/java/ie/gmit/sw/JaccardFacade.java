@@ -31,7 +31,7 @@ public class JaccardFacade implements IJaccardFacade {
 		return shinglizer.shinglizeDocument(doc);
 	}
 	
-	public MinHashResult hashDocument(ShingleResult shingleResult) {
+	public MinHashResult computeMinHash(ShingleResult shingleResult) {
 		return hashGenerator.process(shingleResult);
 	}
 	
