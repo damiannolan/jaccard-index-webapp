@@ -30,7 +30,7 @@ public class MinHashResult {
 	
 	@Override
 	public String toString() {
-		return "[" + title + "] -"+ Arrays.toString(minHashes.toArray());
+		return "[" + title + "] Hashes: "+ Arrays.toString(minHashes.toArray());
 	}
 	
 }

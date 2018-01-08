@@ -1,6 +1,8 @@
 package ie.gmit.sw.database;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
@@ -64,10 +66,15 @@ public class MinHashStore {
 		}
 	}
 
-	public ObjectSet<MinHashResult> getMinHashedDocuments() {
+	public List<MinHashResult> getMinHashedDocuments() {
 		ObjectSet<MinHashResult> results = db.query(MinHashResult.class);
-
-		return results;
+		
+		List<MinHashResult> hashedResults = new ArrayList<MinHashResult>();
+		
+		for(MinHashResult result : results) {
+			hashedResults.add(result);
+		}
+		return hashedResults;
 	}
 
 }

@@ -18,9 +18,11 @@ public class MinHash {
 	
 	private void initHashes() {
 		Random r = new Random();
+		r.setSeed(123456789);
 		for(int i = 0; i < 200; i++) {
 			hashes.add(r.nextInt());
 		}
+		System.out.println("randoms: " + Arrays.toString(hashes.toArray()));
 	}
 	
 	public MinHashResult process(ShingleResult shingleResult) {

@@ -1,8 +1,29 @@
 package ie.gmit.sw.jaccard;
 
-public class JaccardIndexer {
+import java.util.Set;
+
+import ie.gmit.sw.minhash.MinHashResult;
+
+public class JaccardIndexer implements Indexer {
 
 	public JaccardIndexer() {
 	
+	}
+	
+	public double computeJaccardIndex(MinHashResult hashResult, MinHashResult hashResult2) {
+		System.out.println("COMPUTE JACCARD INDEX");
+		
+		Set<Integer> temp = hashResult.getHashes();
+		boolean res = temp.retainAll(hashResult2.getHashes());
+		System.out.println(res);
+		
+		double a = (double) temp.size();
+		System.out.println(a);
+		
+		hashResult.getHashes().addAll(hashResult2.getHashes());
+		double b = (double) hashResult.getHashes().size();
+		System.out.println(b);
+		
+		return a / b;
 	}
 }

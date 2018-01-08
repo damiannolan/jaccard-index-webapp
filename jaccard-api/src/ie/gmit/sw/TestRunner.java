@@ -4,13 +4,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
-
-import com.db4o.ObjectSet;
 
 import ie.gmit.sw.database.MinHashStore;
 import ie.gmit.sw.documents.Document;
 import ie.gmit.sw.documents.TextDocument;
+import ie.gmit.sw.jaccard.Indexer;
+import ie.gmit.sw.jaccard.JaccardIndexer;
 import ie.gmit.sw.minhash.MinHash;
 import ie.gmit.sw.minhash.MinHashResult;
 import ie.gmit.sw.shingles.ShingleResult;
@@ -61,10 +62,10 @@ public class TestRunner {
 		Shinglizer shinglizer = new TextShinglizer(3);
 		
 		ShingleResult shingleResult = shinglizer.shinglizeDocument(doc);
-		System.out.println(Arrays.toString(shingleResult.getShingles().toArray()));
+		//System.out.println(Arrays.toString(shingleResult.getShingles().toArray()));
 		
 		ShingleResult shingles2 = shinglizer.shinglizeDocument(doc2);
-		System.out.println(Arrays.toString(shingles2.getShingles().toArray()));
+		//System.out.println(Arrays.toString(shingles2.getShingles().toArray()));
 		
 		MinHash hashGen = new MinHash();
 		
@@ -73,27 +74,34 @@ public class TestRunner {
 				
 		// J(A, B) = |A intersect B| / |A union B|
 		
-		Set<Integer> temp = hashResult.getHashes();
-		boolean res = temp.retainAll(hashResult2.getHashes());
-		System.out.println(res);
+//		Set<Integer> temp = hashResult.getHashes();
+//		boolean res = temp.retainAll(hashResult2.getHashes());
+//		System.out.println(res);
+//		
+//		double a = (double) temp.size();
+//		System.out.println(a);
+//		
+//		hashResult.getHashes().addAll(hashResult2.getHashes());
+//		double b = (double) hashResult.getHashes().size();
+//		System.out.println(b);
+//		
+//		double jaccard = a / b;
+//		System.out.println(jaccard);
 		
-		double a = (double) temp.size();
-		System.out.println(a);
-		
-		hashResult.getHashes().addAll(hashResult2.getHashes());
-		double b = (double) hashResult.getHashes().size();
-		System.out.println(b);
-		
-		double jaccard = a / b;
-		System.out.println(jaccard);
+		Indexer indexer = new JaccardIndexer();
 		
 		MinHashStore datastore = MinHashStore.getInstance();
 		datastore.addMinHashedDocument(hashResult);
 		
-		ObjectSet<MinHashResult> objSet = datastore.getMinHashedDocuments();
-		for(MinHashResult r : objSet) {
-			System.out.println(r.toString());
+		List<MinHashResult> storedResults = datastore.getMinHashedDocuments();
+		double total = 0;
+		for(MinHashResult r : storedResults) {
+			//System.out.println(r.toString());
+			double jaccard = indexer.computeJaccardIndex(hashResult2, r);
+			System.out.println("Jaccard Index: " + jaccard);
+			total += jaccard;
 		}
 		
+		System.out.println(total / storedResults.size());
 	}
 }

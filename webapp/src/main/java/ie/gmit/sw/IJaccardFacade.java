@@ -9,4 +9,8 @@ public interface IJaccardFacade {
 	public ShingleResult shinglizeDocument(Document doc);
 	
 	public MinHashResult hashDocument(ShingleResult shingleResult);
+	
+	public void storeHashedResult(MinHashResult hashedResult);
+	
+	public double averageJaccardIndex(MinHashResult minhash);
 }
