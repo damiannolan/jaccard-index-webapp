@@ -9,6 +9,7 @@ public class JaccardWorker implements Runnable {
 	private Document doc;
 	private String taskNumber;
 	private IJaccardFacade facade;
+	private OutQueueService outQueueService;
 	
 	public JaccardWorker(Request request) {
 		this.doc = request.getDoc();
@@ -33,8 +34,17 @@ public class JaccardWorker implements Runnable {
 
 		double averageJaccardIndex = facade.averageJaccardIndex(minHashResult);
 		
+
+		
 		Response response = new Response(taskNumber, averageJaccardIndex);
 		
+		try {
+			outQueueService = OutQueueService.getInstance();
+			outQueueService.queueResponse(response);
+		} catch (Exception e) {
+			System.out.println("Error adding Response to OutQueue. Check RabbitMq is setup correctly");
+			e.printStackTrace();
+		}
 		
 		
 	}

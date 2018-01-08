@@ -12,8 +12,6 @@ import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
-import ie.gmit.sw.documents.Document;
-
 public class InQueueService {
 	
 	// private static lazy singleton instance
@@ -82,6 +80,7 @@ public class InQueueService {
 			Request request = (Request) SerializationUtils.deserialize(body);
 			
 			// Dispatch to worker thread
+			new Thread(new JaccardWorker(request)).start();
 		}
 	}
 }

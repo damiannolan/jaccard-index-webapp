@@ -1,9 +1,11 @@
 package ie.gmit.sw.minhash;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Set;
 
-public class MinHashResult {
+public class MinHashResult implements Serializable {
+	private static final long serialVersionUID = 42L;
 	private String title;
 	private Set<Integer> minHashes;
 	

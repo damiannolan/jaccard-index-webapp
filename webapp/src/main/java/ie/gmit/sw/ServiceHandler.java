@@ -80,11 +80,10 @@ public class ServiceHandler extends HttpServlet {
 			Request request = new Request(doc, taskNumber);
 			// Add job to in-queue
 			inQueueService.queueRequest(request);
-			
+			inQueueService.consumeRequest();
 		} else {
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/poll");
 			dispatcher.forward(req, resp);
-			// Check out-queue for finished job with the given taskNumber
 		}
 
 		// Set ContentType of response and get handle on PrintWriter

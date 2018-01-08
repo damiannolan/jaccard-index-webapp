@@ -59,7 +59,7 @@ public class MinHashStore implements IMinHashStore {
 		});
 
 		if (result.hasNext()) {
-			System.out.println("[WARNING] Document already exists within DB4O");
+			System.out.println("[INFO] Document already exists within DB4O");
 		} else {
 			db.store(minhashDocument);
 			db.commit();
@@ -67,9 +67,12 @@ public class MinHashStore implements IMinHashStore {
 	}
 
 	public List<MinHashResult> getMinHashedDocuments() {
+		List<MinHashResult> hashedResults = new ArrayList<MinHashResult>();
+
+		System.out.println("Accessing DB for MinHashedResults");
 		ObjectSet<MinHashResult> results = db.query(MinHashResult.class);
 		
-		List<MinHashResult> hashedResults = new ArrayList<MinHashResult>();
+		System.out.println(results.size());
 		
 		for(MinHashResult result : results) {
 			hashedResults.add(result);
