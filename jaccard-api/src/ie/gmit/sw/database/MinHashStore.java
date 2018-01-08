@@ -6,6 +6,7 @@ import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
+import com.db4o.query.Predicate;
 import com.db4o.ta.TransparentActivationSupport;
 import com.db4o.ta.TransparentPersistenceSupport;
 
@@ -47,7 +48,13 @@ public class MinHashStore {
 
 	public void addMinHashedDocument(MinHashResult minhashDocument) {
 		// Query by example to check if the document already existed
-		ObjectSet<MinHashResult> result = db.queryByExample(new MinHashResult(minhashDocument.getTitle(), minhashDocument.getHashes()));
+		ObjectSet<MinHashResult> result = db.query(new Predicate<MinHashResult>() {
+			private static final long serialVersionUID = 42L;
+			
+			public boolean match(MinHashResult minhash) {
+				return minhash.getTitle().equals(minhashDocument.getTitle());
+			}
+		});
 
 		if (result.hasNext()) {
 			System.out.println("[WARNING] Document already exists within DB4O");
