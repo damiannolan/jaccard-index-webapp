@@ -1,6 +1,8 @@
 package ie.gmit.sw.documents;
 
-public interface Document {
+import java.io.Serializable;
+
+public interface Document extends Serializable {
 	public String title();
 	
 	public String text();

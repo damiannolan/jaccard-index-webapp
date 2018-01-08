@@ -1,7 +1,7 @@
 package ie.gmit.sw.documents;
 
 public class TextDocument implements Document {
-	
+	private static final long serialVersionUID = 42L;
 	private String title;
 	private String text;
 	private int id;
