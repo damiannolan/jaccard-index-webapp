@@ -44,7 +44,7 @@ public class JaccardFacade implements IJaccardFacade {
 		
 		double total = 0;
 		for(MinHashResult storedResult : storedResults) {
-			double index = indexer.computeJaccardIndex(minhash, storedResult);
+			double index = indexer.calculateIndex(minhash, storedResult);
 			total += index;
 		}
 		

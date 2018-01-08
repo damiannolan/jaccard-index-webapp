@@ -16,7 +16,7 @@ import ie.gmit.sw.minhash.MinHashResult;
 import xtea_db4o.XTEA;
 import xtea_db4o.XTeaEncryptionStorage;
 
-public class MinHashStore {
+public class MinHashStore implements IMinHashStore {
 	private static MinHashStore instance;
 	
 	private ObjectContainer db = null;

@@ -5,12 +5,8 @@ import java.util.Set;
 import ie.gmit.sw.minhash.MinHashResult;
 
 public class JaccardIndexer implements Indexer {
-
-	public JaccardIndexer() {
 	
-	}
-	
-	public double computeJaccardIndex(MinHashResult hashResult, MinHashResult hashResult2) {
+	public double calculateIndex(MinHashResult hashResult, MinHashResult hashResult2) {
 		System.out.println("COMPUTE JACCARD INDEX");
 		
 		Set<Integer> temp = hashResult.getHashes();

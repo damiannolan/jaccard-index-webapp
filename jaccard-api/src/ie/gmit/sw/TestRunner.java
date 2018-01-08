@@ -97,7 +97,7 @@ public class TestRunner {
 		double total = 0;
 		for(MinHashResult r : storedResults) {
 			//System.out.println(r.toString());
-			double jaccard = indexer.computeJaccardIndex(hashResult2, r);
+			double jaccard = indexer.calculateIndex(hashResult2, r);
 			System.out.println("Jaccard Index: " + jaccard);
 			total += jaccard;
 		}
