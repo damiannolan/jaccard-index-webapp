@@ -30,12 +30,10 @@ public class JaccardWorker implements Runnable {
 
 		MinHashResult minHashResult = facade.computeMinHash(shingleResult);
 
-		facade.storeHashedResult(minHashResult);
-
 		double averageJaccardIndex = facade.averageJaccardIndex(minHashResult);
 		
-
-		
+		facade.storeHashedResult(minHashResult);
+	
 		Response response = new Response(taskNumber, averageJaccardIndex);
 		
 		try {
@@ -44,9 +42,6 @@ public class JaccardWorker implements Runnable {
 		} catch (Exception e) {
 			System.out.println("Error adding Response to OutQueue. Check RabbitMq is setup correctly");
 			e.printStackTrace();
-		}
-		
-		
+		}	
 	}
-
 }

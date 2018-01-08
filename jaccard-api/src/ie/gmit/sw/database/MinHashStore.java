@@ -33,7 +33,7 @@ public class MinHashStore implements IMinHashStore {
 		config.file().storage(new XTeaEncryptionStorage("password", XTEA.ITERATIONS64));
 
 		// Open a local database
-		this.db = Db4oEmbedded.openFile(config, "minhash.data");
+		this.db = Db4oEmbedded.openFile(config, "test2.data");
 	}
 	
 	public static MinHashStore getInstance() {
@@ -64,6 +64,8 @@ public class MinHashStore implements IMinHashStore {
 			db.store(minhashDocument);
 			db.commit();
 		}
+		//this.db.store(minhashDocument);
+		//this.db.commit();
 	}
 
 	public List<MinHashResult> getMinHashedDocuments() {
@@ -72,11 +74,23 @@ public class MinHashStore implements IMinHashStore {
 		System.out.println("Accessing DB for MinHashedResults");
 		ObjectSet<MinHashResult> results = db.query(MinHashResult.class);
 		
-		System.out.println(results.size());
-		
-		for(MinHashResult result : results) {
-			hashedResults.add(result);
+		while(results.hasNext()) {
+			hashedResults.add(results.next());
 		}
+				for(MinHashResult result : results) {
+			//hashedResults.add(result);
+			System.out.println(result);
+		}
+		
+//		Query query = this.db.query();
+//		query.constrain(MinHashResult.class);
+//		
+//		ObjectSet<MinHashResult> results = query.execute();
+//		
+//		while(results.hasNext()) {
+//			hashedResults.add(results.next());
+//		}
+		
 		return hashedResults;
 	}
 
