@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Set;
 
+import com.db4o.ObjectSet;
+
+import ie.gmit.sw.database.MinHashStore;
 import ie.gmit.sw.documents.Document;
 import ie.gmit.sw.documents.TextDocument;
 import ie.gmit.sw.minhash.MinHash;
@@ -83,5 +86,14 @@ public class TestRunner {
 		
 		double jaccard = a / b;
 		System.out.println(jaccard);
+		
+		MinHashStore datastore = MinHashStore.getInstance();
+		datastore.addMinHashedDocument(hashResult);
+		
+		ObjectSet<MinHashResult> objSet = datastore.getMinHashedDocuments();
+		for(MinHashResult r : objSet) {
+			System.out.println(r.toString());
+		}
+		
 	}
 }
