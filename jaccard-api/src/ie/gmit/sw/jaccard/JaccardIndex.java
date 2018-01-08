@@ -1,8 +1,6 @@
 package ie.gmit.sw.jaccard;
 
-public class JaccardIndex {
-
-	public JaccardIndex() {
+public interface JaccardIndex {
 	
-	}
+	public void computeJaccardIndex();
 }

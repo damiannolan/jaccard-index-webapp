@@ -1,9 +1,18 @@
 package ie.gmit.sw;
 
-public class JaccardWorker implements Runnable {
+import ie.gmit.sw.documents.Document;
 
+public class JaccardWorker implements Runnable {
+	
+	private Document doc;
+	private IJaccardFacade facade;
+	
+	public JaccardWorker(Document doc) {
+		this.doc = doc;
+		this.facade = new JaccardFacade();
+	}
+	
 	public void run() {
-		// TODO Auto-generated method stub
 		
 		/*
 		 * 1. Create a Jaccard Facade Object
